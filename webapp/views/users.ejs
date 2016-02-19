@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="/favicon.ico">
+
+  <title>Sensor View</title>
+
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> ??? -->
+  <script src="/bootstrap/assets/js/vendor/jquery.min.js"></script>
+  <script>
+    window.jQuery || document.write('<script src="/bootstrap/assets/js/vendor/jquery.min.js"><\/script>')
+  </script>
+  <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="/bootstrap/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+  <script type="text/javascript" src="/javascripts/iscroll-4.2.5.js"></script>
+
+
+
+  <!-- Bootstrap core CSS -->
+  <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <link href="/bootstrap/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="/stylesheets/sensor.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/iscroll.css">
+
+  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+  <!--[if lt IE 9]><script src="/bootstrap/assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+  <script src="/bootstrap/assets/js/ie-emulation-modes-warning.js"></script>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body onload="loaded()">
+
+  <div id="wrapper">
+    <div id="scroller">
+
+      <div id="pullDown">
+        <span class="pullDownIcon"></span><span class="pullDownLabel">Pull down to refresh...</span>
+      </div>
+
+      <div id='main'>
+      </div>
+
+      <div class="mastfoot">
+        <div class="inner">
+          <p>Sensor View by <a href="https://webdev-zhangtianchao1.c9users.io">@tico</a>.</p>
+        </div>
+      </div>
+      <!--
+      <div id="pullUp">
+        <span class="pullUpIcon"></span><span class="pullUpLabel">Pull up to refresh...</span>
+      </div>
+      -->
+    </div>
+  </div>
+
+
+
+
+</body>
+
+<script>
+  function refreshSensorNodesOrg(sensor_data) {
+    var html_context = "";
+    for (sensor in sensor_data) {
+      var data = sensor_data[sensor];
+      for (key in data) {
+        if (key == "Status") {
+          switch (data[key]) {
+            case "warning":
+              html_context += "<div class=\"panel panel-warning\">";
+              break;
+            case "danger":
+              html_context += "<div class=\"panel panel-danger\">";
+              break;
+            default:
+              html_context += "<div class=\"panel panel-info\">";
+              break;
+          }
+        }
+      }
+      //html_context = "<div class=\"panel panel-primary\">";
+      html_context += "<div class=\"panel-heading\">";
+      html_context += "<h1 class=\"panel-title\">" + sensor + "</h1>";
+      html_context += "</div>";
+      html_context += "<div class=\"panel-body\">"; {
+        html_context += "<h4>";
+        for (key in data) {
+          if (key == "Status") {
+            continue;
+          }
+          html_context += "<div>" + key + ":" + data[key] + "</div>";
+        }
+        html_context += "</h4>";
+      }
+      html_context += "</div>";
+      html_context += "</div>";
+    }
+
+
+    $("#main").empty().html(html_context);
+  }
+  
+  function refreshSensorNodes(sensor_data) {
+    var html_context = "";
+    for (sensor in sensor_data) {
+      var data = sensor_data[sensor];
+      for (key in data) {
+        if (key == "Status") {
+          switch (data[key]) {
+            case "warning":
+              html_context += "<div class=\"panel panel-warning\">";
+              break;
+            case "danger":
+              html_context += "<div class=\"panel panel-danger\">";
+              break;
+            default:
+              html_context += "<div class=\"panel panel-info\">";
+              break;
+          }
+        }
+      }
+      //html_context = "<div class=\"panel panel-primary\">";
+      html_context += "<div class=\"panel-heading\">";
+      html_context += "<h1 class=\"panel-title\">" + sensor + "</h1>";
+      html_context += "</div>";
+      html_context += "<div class=\"panel-body\">"; 
+      {
+        html_context += "<table class=\"table table-striped\">";
+        html_context += "<thead><tr><th>Items</th><th>Value</th></tr></thead>";
+        html_context += "<tbody>";
+        for (key in data) {
+          if (key == "Status") {
+            continue;
+          }
+          html_context += "<tr><td>" + key + "</td><td>" + data[key] + "</td></tr>";
+        }
+        html_context += "</tbody>";
+        html_context += "</table>";
+        html_context += "<a href=\"https://webdev-zhangtianchao1.c9users.io/users?sensor=" + sensor.split("#")[1] + "\">History...</a>";
+      }
+      html_context += "</div>";
+      html_context += "</div>";
+    }
+
+
+    $("#main").empty().html(html_context);
+  }
+
+  $(document).ready(function() {
+
+    $.ajax({
+      url: '/users/?action=getsensordata',
+      type: 'post',
+      data: {},
+      beforeSend: function(xhr) {},
+      success: function(data) {
+        refreshSensorNodes(data);
+        myScroll.refresh();
+      },
+      complete: function(xhr) {}
+    });
+  });
+
+  var myScroll,
+    pullDownEl, pullDownOffset,
+    pullUpEl, pullUpOffset,
+    generatedCount = 0;
+
+  function pullDownAction() {
+    $.ajax({
+      url: '/users/?action=getsensordata',
+      type: 'post',
+      data: {},
+      beforeSend: function(xhr) {},
+      success: function(data) {
+        myScroll.refresh();
+        refreshSensorNodes(data);
+      },
+      complete: function(xhr) {}
+    });
+  }
+
+  function pullUpAction() {
+    setTimeout(function() { // <-- Simulate network congestion, remove setTimeout from production!
+
+      //myScroll.refresh();		// Remember to refresh when contents are loaded (ie: on ajax completion)
+    }, 1000); // <-- Simulate network congestion, remove setTimeout from production!
+  }
+
+  function loaded() {
+    pullDownEl = document.getElementById('pullDown');
+    pullDownOffset = pullDownEl.offsetHeight;
+    //pullUpEl = document.getElementById('pullUp');	
+    //pullUpOffset = pullUpEl.offsetHeight;
+
+    myScroll = new iScroll('wrapper', {
+      useTransition: true,
+      topOffset: pullDownOffset,
+      onRefresh: function() {
+        if (pullDownEl.className.match('loading')) {
+          pullDownEl.className = '';
+          pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Pull down to refresh...';
+        } //else if (pullUpEl.className.match('loading')) {
+        //pullUpEl.className = '';
+        //pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+        //}
+      },
+      onScrollMove: function() {
+        if (this.y > 5 && !pullDownEl.className.match('flip')) {
+          pullDownEl.className = 'flip';
+          pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Release to refresh...';
+          this.minScrollY = 0;
+        }
+        else if (this.y < 5 && pullDownEl.className.match('flip')) {
+          pullDownEl.className = '';
+          pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Pull down to refresh...';
+          this.minScrollY = -pullDownOffset;
+        } //else if (this.y < (this.maxScrollY - 5) && !pullUpEl.className.match('flip')) {
+        //pullUpEl.className = 'flip';
+        //pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Release to refresh...';
+        //this.maxScrollY = this.maxScrollY;
+        //} else if (this.y > (this.maxScrollY + 5) && pullUpEl.className.match('flip')) {
+        //pullUpEl.className = '';
+        //pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Pull up to load more...';
+        //this.maxScrollY = pullUpOffset;
+        //}
+      },
+      onScrollEnd: function() {
+        if (pullDownEl.className.match('flip')) {
+          pullDownEl.className = 'loading';
+          pullDownEl.querySelector('.pullDownLabel').innerHTML = 'Loading...';
+          pullDownAction(); // Execute custom function (ajax call?)
+        } //else if (pullUpEl.className.match('flip')) {
+        //pullUpEl.className = 'loading';
+        //pullUpEl.querySelector('.pullUpLabel').innerHTML = 'Loading...';				
+        //pullUpAction();	// Execute custom function (ajax call?)
+        //}
+      }
+    });
+
+    /*
+    setTimeout(function() {
+      document.getElementById('wrapper').style.left = '0';
+    }, 800);
+    */
+    
+    //setTimeout(loaded, 200);
+  }
+
+  //document.addEventListener('touchmove', function(e) {e.preventDefault();}, false);
+
+  //document.addEventListener('DOMContentLoaded', function () { setTimeout(loaded, 200); }, false);
+</script>
+
+</html>

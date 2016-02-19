@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
+
+  <title>Smart</title>
+
+  <!-- Loading Bootstrap -->
+  <link href="/flatui/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Loading Flat UI -->
+  <link href="/flatui/css/flat-ui.min.css" rel="stylesheet">
+
+  <link href="/stylesheets/smart.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1 id="username">UserName</h1>
+
+    <div class="login-form">
+      <div class="form-group">
+        <input title="Enter User Name" data-placement="bottom" data-toggle="tooltip" type="text" class="form-control login-field" value="" placeholder="Smart" id="login-name" required autofocus />
+        <label class="login-field-icon fui-user" for="login-name"></label>
+      </div>
+    </div>
+
+
+  </div>
+  <!-- /container -->
+
+  <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+  <script src="/flatui/js/vendor/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <!-- <script src="/flatui/js/vendor/video.js"></script> -->
+  <script src="/flatui/js/flat-ui.min.js"></script>
+  <!-- <script src="/javascripts/tooltip.js"></script> -->
+
+  <script>
+    $(document).ready(function() {
+
+      $("#username").empty().html("<%= user %>");
+    });
+  </script>
+
+
+</body>
+
+</html>

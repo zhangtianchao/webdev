@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
+
+  <title>Signin for Smart</title>
+
+  <!-- Loading Bootstrap -->
+  <link href="/flatui/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Loading Flat UI -->
+  <link href="/flatui/css/flat-ui.min.css" rel="stylesheet">
+
+  <link href="/stylesheets/smart.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="login-form">
+      <div class="form-group">
+        <input title="Enter User Name" data-placement="bottom" data-toggle="tooltip" type="text" class="form-control login-field" value="" placeholder="Enter your name" id="login-name" required autofocus />
+        <label class="login-field-icon fui-user" for="login-name"></label>
+      </div>
+
+      <div class="form-group">
+        <input title="Enter Password" data-placement="bottom" data-toggle="tooltip" type="password" class="form-control login-field" value="" placeholder="Password" id="login-pass" required />
+        <label class="login-field-icon fui-lock" for="login-pass"></label>
+      </div>
+
+      <a onclick="login()" class="btn btn-primary btn-lg btn-block">Log in</a>
+      <a class="login-link" href="#">Lost your password?</a>
+    </div>
+
+
+  </div>
+  <!-- /container -->
+
+  <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
+  <script src="/flatui/js/vendor/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <!-- <script src="/flatui/js/vendor/video.js"></script> -->
+  <script src="/flatui/js/flat-ui.min.js"></script>
+  <!-- <script src="/javascripts/tooltip.js"></script> -->
+
+  <script>
+    // $(function () {
+    //   $('[data-toggle=popover]').popover();
+    // });
+
+    // $('#login').on('click', function() {
+    //   $('#login-name').popover();
+    // })
+
+    function login() {
+      //$('#login-name').tooltip();
+      //$('#login-name').tooltip({trigger : 'manual'});
+      //$("#login-pass").popover({trigger:manual});
+
+      if ($("#login-name").val() == "") {
+        $('#login-name').tooltip('show');
+        $("#login-name").css("border-color", "red");
+        $("#login-name").css("background-color", "#FFFFCC");
+        return;
+      }
+
+      if ($("#login-pass").val() == "") {
+        $('#login-pass').tooltip('show');
+        $("#login-pass").css("border-color", "red");
+        $("#login-pass").css("background-color", "#FFFFCC");
+        return;
+      }
+
+      // post user/pw to server
+      //var us = "{" + $("#login-name").val() + ":" + $("#login-pass").val() + "}";
+      //var us = {$("#login-name").val() : $("#login-pass").val()};
+      //$("#login-name").val("");
+      //$("#login-pass").val("");
+      var us = {
+        user: "",
+        passwd: ""
+      };
+      us.user = $("#login-name").val();
+      us.passwd = $("#login-pass").val();
+      $.ajax({
+        url: '/smart/?action=login',
+        type: 'post',
+        timeout: 3000, // 3000 ms
+        data: us,
+        beforeSend: function(xhr) {},
+        success: function(data) {
+          if(data == "success"){
+            location.reload();
+          }
+        },
+        error: function(xhr, status) {
+          if (status == 'timeout') {
+            //alert("Timeout");
+          }
+          else {
+
+          }
+        },
+        complete: function(xhr) {}
+      });
+
+    }
+
+    $("#login-name").focus(function() {
+      $("#login-name").css("border-color", "");
+      $("#login-name").css("background-color", "");
+      $('#login-name').tooltip('destroy');
+    });
+
+    $("#login-pass").focus(function() {
+      $("#login-pass").css("border-color", "");
+      $("#login-pass").css("background-color", "");
+      $('#login-pass').tooltip('destroy');
+    });
+  </script>
+
+
+</body>
+
+</html>
