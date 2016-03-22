@@ -13,6 +13,10 @@ var http = require('http');
  */
 
 var port = normalizePort(process.env.PORT || '3000');
+//var port = normalizePort(process.env.PORT || '3306'); // MYSQL Port, OK For ITC
+//var port = normalizePort(process.env.PORT || '1433'); // SQL Server Port, OK For ITC
+//var port = normalizePort(process.env.PORT || '1863'); // MSN Port, OK For ITC
+// Fail: 1503, 1512, 5800
 app.set('port', port);
 
 /**

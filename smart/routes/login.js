@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var checkUser = require("./checkuser.js");
+var db = require("./database");
 
 
 router.get('/', function(req, res, next) {
@@ -18,15 +18,8 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   var action = req.query["action"];
   if (action == "login") {
-    // if (checkUser(req.body.user, req.body.passwd)) {
-    //   req.session.user = req.body.user;
-    //   res.send("success");
-    //   //res.redirect('/');
-    // }
-    // else {
-    //   res.send("nouser");
-    // }
-    checkUser(req.body.user, req.body.passwd,
+    console.log(req.body.user + ":" + req.body.passwd);
+    db.checkuser(req.body.user, req.body.passwd,
     function(result){
       if(result){
         req.session.user = req.body.user;
@@ -35,6 +28,9 @@ router.post('/', function(req, res, next) {
         res.send("nouser");
       }
     });
+  }else if(action == "logout"){
+    req.session.user = undefined;
+    res.send("success");
   }
 });
 
