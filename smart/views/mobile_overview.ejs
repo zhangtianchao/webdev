@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
+
+  <title>Overview</title>
+
+  <!-- Loading JQuery -->
+  <script src="/javascripts/jquery-2.2.1.min.js"></script>
+
+  <!-- Loading Bootstrap -->
+  <link href="/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <script src="/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+
+
+  <!-- Loading bootstrap table -->
+  <link href="/bootstrap-table-1.10.1/bootstrap-table.min.css" rel="stylesheet">
+  <script src="/bootstrap-table-1.10.1/bootstrap-table.min.js"></script>
+
+  <link href="/stylesheets/smartmobile.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="main" id="main-frame">
+    <table id="overview-table" data-row-style="rowStyle" data-search="false">
+      <thead>
+        <tr>
+          <th data-field="id">ID</th>
+          <th data-field="name">Item Name</th>
+          <th data-field="price">Item Price</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+
+
+  <script>
+  
+    var current_station_id = "overview";
+
+    $(document).ready(function() {
+      getOverviewData();
+    });
+
+    function getOverviewData() {
+      current_station_id = "overview";
+      $.ajax({
+        url: '/users/?action=getOverviewData',
+        type: 'post',
+        timeout: 5000,
+        data: {},
+        beforeSend: function(xhr) {},
+        success: function(data) {
+          $('#overview-table').bootstrapTable({
+            data: data
+          });
+          $('#overview-table').bootstrapTable('load', data);
+        },
+        error: function(xhr, status) {
+          if (status == 'timeout') {}
+          else {}
+        },
+        complete: function(xhr) {}
+      });
+    }
+    
+    function rowStyle(row, index) {
+      return {
+        classes: row.status
+      };
+    }
+
+    setInterval(function(){
+      if(current_station_id == undefined) return;
+      
+      if(current_station_id == "overview"){
+        getOverviewData();
+      }else{
+        getStationData(current_station_id);
+      }
+      
+    }, 10000);
+  </script>
+
+</body>
+
+</html>

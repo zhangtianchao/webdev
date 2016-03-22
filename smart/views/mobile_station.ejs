@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
+
+  <title>Station</title>
+
+  <!-- Loading JQuery -->
+  <script src="/javascripts/jquery-2.2.1.min.js"></script>
+
+  <!-- Loading Bootstrap -->
+  <link href="/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <script src="/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+  
+  <!-- Loading Flat UI -->
+  <link href="/flatui-2.2.2/css/flat-ui.min.css" rel="stylesheet">
+  <script src="/flatui-2.2.2/js/flat-ui.min.js"></script>
+
+
+  <!-- Loading bootstrap table -->
+  <link href="/bootstrap-table-1.10.1/bootstrap-table.min.css" rel="stylesheet">
+  <script src="/bootstrap-table-1.10.1/bootstrap-table.min.js"></script>
+
+  <link href="/stylesheets/smartmobile.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <div class="main" id="station_list">
+
+  </div>
+
+  <div class="main" id="main-frame" style="display:none">
+    <table id="overview-table" data-row-style="rowStyle" data-search="false">
+      <thead>
+        <tr>
+          <th data-field="id">ID</th>
+          <th data-field="name">Item Name</th>
+          <th data-field="price">Item Price</th>
+        </tr>
+      </thead>
+    </table>
+    <hr />
+    <p>
+      <input id="message" type="text" placeholder="Message" class="form-control" />
+    </p>
+    <p>
+      <button onclick="sendmsg()" class="btn btn-hg btn-primary" style="width:100%">
+        Send Message
+      </button>
+    </p>
+  </div>
+
+  <div class="modal fade" id="infodialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              &times;
+            </button>-->
+          <h4 class="modal-title" id="infodialog_title">
+               ???
+            </h4>
+        </div>
+        <div class="modal-body" id="infodialog_info">
+          ???
+        </div>
+      </div>
+      <!-- /.modal-content -->
+    </div>
+  </div>
+
+
+  <script>
+    var current_station_id = undefined;
+
+    $(document).ready(function() {
+      $.ajax({
+        url: '/users/?action=getStationList',
+        type: 'post',
+        timeout: 5000,
+        data: {},
+        beforeSend: function(xhr) {},
+        success: function(data) {
+          var context = "";
+          //<button class="btn btn-info">Info</button>
+          for (var i = 0; i < data.length; i++) {
+            context += '<p><button class="btn btn-hg btn-info" id="' + data[i].id + '" onclick=changeStation("' + data[i].id + '") style="width:100%">' + data[i].name + '</button></p>';
+          }
+          $("#station_list").html(context);
+
+        },
+        error: function(xhr, status) {
+          if (status == 'timeout') {}
+          else {}
+        },
+        complete: function(xhr) {}
+      });
+
+    });
+
+    function getStationData(id) {
+      $.ajax({
+        url: '/users/?action=getStationData',
+        type: 'post',
+        timeout: 5000,
+        data: {
+          id: id
+        },
+        beforeSend: function(xhr) {},
+        success: function(data) {
+          $('#overview-table').bootstrapTable('load', data);
+        },
+        error: function(xhr, status) {
+          var data = [];
+          $('#overview-table').bootstrapTable('load', data);
+          if (status == 'timeout') {}
+          else {}
+        },
+        complete: function(xhr) {}
+      });
+    }
+
+    function changeStation(id) {
+
+      hide(document.querySelector('#station_list'));
+      show(document.querySelector('#main-frame'));
+
+      current_station_id = id;
+
+      if (id == "overview") {
+        return;
+      }
+      else {
+        $.ajax({
+          url: '/users/?action=getStationData',
+          type: 'post',
+          timeout: 5000,
+          data: {
+            id: id
+          },
+          beforeSend: function(xhr) {},
+          success: function(data) {
+            $('#overview-table').bootstrapTable({
+              data: data
+            });
+            $('#overview-table').bootstrapTable('load', data);
+          },
+          error: function(xhr, status) {
+            var data = [];
+            $('#overview-table').bootstrapTable('load', data);
+            if (status == 'timeout') {}
+            else {}
+          },
+          complete: function(xhr) {}
+        });
+      }
+    }
+
+
+
+    function rowStyle(row, index) {
+      return {
+        classes: row.status
+      };
+    }
+
+    setInterval(function() {
+      if (current_station_id == undefined) return;
+
+      if (current_station_id == "overview") {}
+      else {
+        getStationData(current_station_id);
+      }
+
+    }, 10000);
+
+
+    function hide(elements) {
+      elements = elements.length ? elements : [elements];
+      for (var index = 0; index < elements.length; index++) {
+        elements[index].style.display = 'none';
+      }
+    }
+
+    function show(elements, specifiedDisplay) {
+      var computedDisplay, element, index;
+
+      elements = elements.length ? elements : [elements];
+      for (index = 0; index < elements.length; index++) {
+        element = elements[index];
+
+        // Remove the element's inline display styling
+        element.style.display = '';
+        computedDisplay = window.getComputedStyle(element, null).getPropertyValue('display');
+
+        if (computedDisplay === 'none') {
+          element.style.display = specifiedDisplay || 'block';
+        }
+      }
+    }
+
+    function sendmsg() {
+      if ($("#message").val() == "") {
+        showInfo("Error", "No Message", 3000);
+        return;
+      }
+      if (current_station_id == undefined) {
+        showInfo("Error", "No Station ID", 3000);
+        return;
+      }
+      if (current_station_id == "overview") {
+        showInfo("Error", "Can not Send Message at Overview Page", 3000);
+        return;
+      }
+      $.ajax({
+        url: '/users/?action=sendmsg',
+        type: 'post',
+        timeout: 5000,
+        data: {
+          stationid: current_station_id,
+          msg: $("#message").val()
+        },
+        beforeSend: function(xhr) {},
+        success: function(data) {
+          if (data == "ok") {
+            showInfo("Success", "Send Message OK", 3000);
+          }
+          else {
+            showInfo("Error", data, 3000);
+          }
+        },
+        error: function(xhr, status) {
+          showInfo("Error", "Send Message Error", 3000);
+        },
+        complete: function(xhr) {}
+      });
+    }
+
+    function showInfo(title, msg, closetime) {
+      $("#infodialog_title").html(title);
+      $("#infodialog_info").html(msg);
+      $("#infodialog").modal('show');
+      setTimeout(
+        function() {
+          $("#infodialog").modal('hide');
+        },
+        closetime);
+    }
+  </script>
+
+</body>
+
+</html>
