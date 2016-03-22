@@ -1,7 +1,7 @@
 body {
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #999;
+  /*background-color: #999;*/
 }
 
 .login-form {
@@ -80,8 +80,8 @@ body {
 }
 @media (min-width: 768px) {
   .main {
-    padding-right: 40px;
-    padding-left: 40px;
+    padding-right: 10px;
+    padding-left: 10px;
   }
 }
 .main .page-header {
@@ -106,4 +106,17 @@ body {
 .placeholder img {
   display: inline-block;
   border-radius: 50%;
+}
+
+
+
+#lean_overlay {
+    position: fixed;
+    z-index:100;
+    top: 0px;
+    left: 0px;
+    height:100%;
+    width:100%;
+    background: #000;
+    display: none;
 }

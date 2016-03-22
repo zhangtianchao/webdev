@@ -11,14 +11,21 @@
   <link rel="icon" href="favicon.ico">
 
   <title>Signin for Smart</title>
+  
+  <!-- Loading JQuery -->
+  <script src="/javascripts/jquery-2.2.1.min.js"></script>
 
   <!-- Loading Bootstrap -->
-  <link href="/flatui/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <script src="/bootstrap-3.3.6/js/bootstrap.min.js"></script>
+  
   <!-- Loading Flat UI -->
-  <link href="/flatui/css/flat-ui.min.css" rel="stylesheet">
+  <link href="/flatui-2.2.2/css/flat-ui.min.css" rel="stylesheet">
+  <script src="/flatui-2.2.2/js/flat-ui.min.js"></script>
 
   <link href="/stylesheets/smart.css" rel="stylesheet">
+  
+  <script src="/javascripts/sha256.min.js"></script>
 
 </head>
 
@@ -37,7 +44,7 @@
         <label class="login-field-icon fui-lock" for="login-pass"></label>
       </div>
 
-      <a onclick="login()" class="btn btn-primary btn-lg btn-block">Log in</a>
+      <a onclick="login()" id="loginbt" class="btn btn-primary btn-lg btn-block">Log in</a>
       <a class="login-link" href="#">Lost your password?</a>
     </div>
 
@@ -64,13 +71,6 @@
 
   </div>
   <!-- /container -->
-
-  <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
-  <script src="/flatui/js/vendor/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <!-- <script src="/flatui/js/vendor/video.js"></script> -->
-  <script src="/flatui/js/flat-ui.min.js"></script>
-  <!-- <script src="/javascripts/tooltip.js"></script> -->
 
   <script>
     // $(function () {
@@ -110,7 +110,7 @@
         passwd: ""
       };
       us.user = $("#login-name").val();
-      us.passwd = $("#login-pass").val();
+      us.passwd = sha256($("#login-pass").val());
       $.ajax({
         url: '/login/?action=login',
         type: 'post',
@@ -119,19 +119,21 @@
         beforeSend: function(xhr) {},
         success: function(data) {
           if (data == "success") {
-            //location.reload();
-            location.assign('https://webdev-zhangtianchao1.c9users.io/');
-          }else{
+            location.reload();
+            //location.assign('https://webdev-zhangtianchao1.c9users.io/');
+          }
+          else {
             //$("#infodialog_info").empty().html("No User or Password Error");
             $("#infodialog_title").html("Error");
             $("#infodialog_info").html("No User or Password Error");
             $("#infodialog").modal('show');
             setTimeout(
-              function(){
+              function() {
                 $("#infodialog").modal('hide');
                 $("#login-name").val("");
                 $("#login-pass").val("");
-              }, 
+                $("#login-name").focus();
+              },
               3000);
           }
         },
@@ -141,9 +143,10 @@
             $("#infodialog_info").html("Server No Response");
             $("#infodialog").modal('show');
             setTimeout(
-              function(){
+              function() {
                 $("#infodialog").modal('hide');
-              }, 
+                $("#loginbt").focus();
+              },
               3000);
           }
           else {
@@ -165,6 +168,26 @@
       $("#login-pass").css("border-color", "");
       $("#login-pass").css("background-color", "");
       $('#login-pass').tooltip('destroy');
+    });
+
+    $("#login-name").keyup(function(event) {
+      if (event.keyCode == 13) {
+        if ($("#login-name").val() == "") {
+          //$('#login-name').tooltip('show');
+          //$("#login-name").css("border-color", "red");
+          //$("#login-name").css("background-color", "#FFFFCC");
+          return;
+        }
+        else {
+          $("#login-pass").focus();
+        }
+      }
+    });
+
+    $("#login-pass").keyup(function(event) {
+      if (event.keyCode == 13) {
+        $("#loginbt").click();
+      }
     });
   </script>
 

@@ -12,11 +12,30 @@
 
   <title>Smart</title>
 
+  <!-- Loading JQuery -->
+  <script src="/javascripts/jquery-2.2.1.min.js"></script>
+
   <!-- Loading Bootstrap -->
-  <link href="/flatui/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/bootstrap-3.3.6/css/bootstrap.min.css" rel="stylesheet">
+  <script src="/bootstrap-3.3.6/js/bootstrap.min.js"></script>
 
   <!-- Loading Flat UI -->
-  <link href="/flatui/css/flat-ui.min.css" rel="stylesheet">
+  <!--<link href="/flatui-2.2.2/css/flat-ui.min.css" rel="stylesheet">-->
+  <!--<script src="/flatui-2.2.2/js/flat-ui.min.js"></script>-->
+
+
+  <!-- Loading bootstrap table -->
+  <link href="/bootstrap-table-1.10.1/bootstrap-table.min.css" rel="stylesheet">
+  <script src="/bootstrap-table-1.10.1/bootstrap-table.min.js"></script>
+  <script src="/bootstrap-table-1.10.1/extensions/editable/bootstrap-table-editable.min.js"></script>
+  <!--<script src="/bootstrap-table-editable.js"></script>-->
+
+  <link href="/bootstrap3-editable-1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+  <script src="/bootstrap3-editable-1.5.1/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
+
+  <!--<link href="/stylesheets/avgrund.css" rel="stylesheet">-->
+  <!--<script src="/javascripts/jquery.avgrund.min.js"></script>-->
+  <!--<script src="/javascripts/jquery.leanModal.min.js"></script>-->
 
   <link href="/stylesheets/smart.css" rel="stylesheet">
 
@@ -25,228 +44,610 @@
 <body>
 
   <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="https://webdev-zhangtianchao1.c9users.io">SmartThings</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
-            <li onclick="logout()"><a href="#">Logout</a></li>
-          </ul>
-          <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
-          </form>
-        </div>
-      </div>
-    </nav>
-
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-            <li><a href="#">Reports</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Export</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item</a></li>
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-            <li><a href="">More navigation</a></li>
-          </ul>
-          <ul class="nav nav-sidebar">
-            <li><a href="">Nav item again</a></li>
-            <li><a href="">One more nav</a></li>
-            <li><a href="">Another nav item</a></li>
-          </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-          <h1 class="page-header">Dashboard</h1>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://tico.coding.io">SmartThings</a>
+      </div>
 
-          <div class="row placeholders">
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
-            <div class="col-xs-6 col-sm-3 placeholder">
-              <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" width="200" height="200" class="img-responsive" alt="Generic placeholder thumbnail">
-              <h4>Label</h4>
-              <span class="text-muted">Something else</span>
-            </div>
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <!--<ul class="nav navbar-nav navbar-right">-->
+          <!--  <li class="dropdown">-->
+          <!--    <a href="#" class="dropdown-toggle" data-toggle="dropdown">MonsterCritic <b class="caret"></b></a>-->
+          <!--    <ul class="dropdown-menu">-->
+          <!--      <li><a href="#">Action</a></li>-->
+          <!--      <li><a href="#">Another action</a></li>-->
+          <!--      <li><a href="#">Something else here</a></li>-->
+          <!--      <li class="divider"></li>-->
+          <!--      <li><a href="#">Separated link</a></li>-->
+          <!--    </ul>-->
+          <!--  </li>-->
+          <!--<li><a href="#"><span class="visible-sm visible-xs">Settings<span class="fui-gear"></span></span><span class="visible-md visible-lg"><span class="fui-gear"></span></span></a></li>-->
+          <!--</ul>-->
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" id="stationlisttitle">Overview<b class="caret"></b></a>
+            <ul class="dropdown-menu" id="stationlist">
+              <!--<li><a href="javascript:void(0)">Action</a></li>-->
+              <!--<li><a href="#">Another action</a></li>-->
+              <!--<li><a href="#">Something else here</a></li>-->
+              <!--<li class="divider"></li>-->
+              <!--<li><a href="#">Separated link</a></li>-->
+            </ul>
+          </li>
+          <li onclick="sendmsg()" id="sendmsg"><a href="javascript:void(0)">SendMsg</a></li>
+          <li onclick="settings()"><a href="javascript:void(0)">Settings</a></li>
+          <li onclick="logout()"><a href="javascript:void(0)">Logout</a></li>
+        </ul>
+        <form class="navbar-form navbar-right">
+          <input id="message" type="text" class="form-control" placeholder="Message...">
+        </form>
+
+      </div>
+    </div>
+  </nav>
+
+  <!--<div class="container-fluid" id="main-frame" style="display:none">-->
+  <!--  <div class="row">-->
+  <!--    <div class="col-sm-3 col-md-2 sidebar">-->
+  <!--      <ul class="nav nav-sidebar" id="station-sidebar">-->
+  <!--      </ul>-->
+  <!--    </div>-->
+  <!--    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">-->
+
+
+  <!--<a href="#" id="options" data-type="checklist" data-pk="1" data-title="Select options"></a>-->
+  <!--<script>-->
+  <!--  $.fn.editable.defaults.mode = 'inline';-->
+  <!--  $(function() {-->
+  <!--    $('#options').editable({-->
+  <!--      value: [2, 3],-->
+  <!--      source: [{-->
+  <!--        value: 1,-->
+  <!--        text: 'option1'-->
+  <!--      }, {-->
+  <!--        value: 2,-->
+  <!--        text: 'option2'-->
+  <!--      }, {-->
+  <!--        value: 3,-->
+  <!--        text: 'option3'-->
+  <!--      }]-->
+  <!--    });-->
+  <!--  });-->
+  <!--</script>-->
+
+
+
+  <!--<h1 class="page-header">Dashboard</h1>-->
+  <!--<h2 class="sub-header">Section title</h2>-->
+  <!--<div class="container">-->
+  <!--<p>Use <code>height</code>, <code>classes</code>, <code>striped</code>, <code>rowStyle</code> options and <code>class</code>, <code>width</code>, <code>cellStyle</code> column options to set the styles of bootstrap table.</p>-->
+  <!--      <table id="overview-table" data-row-style="rowStyle" data-search="false">-->
+  <!--        <thead>-->
+  <!--          <tr>-->
+  <!--            <th data-field="id">ID</th>-->
+  <!--            <th data-field="name">Item Name</th>-->
+  <!--            <th data-field="price">Item Price</th>-->
+  <!--          </tr>-->
+  <!--        </thead>-->
+  <!--      </table>-->
+  <!--</div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+
+  <!--</div>-->
+
+  <div class="main" id="main-frame">
+    <table id="overview-table" data-row-style="rowStyle" data-search="false">
+      <thead>
+        <tr>
+          <th data-field="id">ID</th>
+          <th data-field="name">Item Name</th>
+          <th data-field="price">Item Price</th>
+        </tr>
+      </thead>
+    </table>
+    <!--</div>-->
+  </div>
+  </div>
+
+  <div class="main" id="setting-frame" style="display:none">
+    <p>
+      <div style="float:left">
+        <h4>Station List</h4></div>
+      <div style="float:right">
+        <button id="saveStationListButton" type="button" class="btn btn-info" onclick="saveStationList()">Save</button>
+      </div>
+    </p>
+    <table id="stations-table" data-row-style="rowStyle">
+      <thead>
+        <tr>
+          <th data-field="id">id</th>
+          <th data-field="name" data-editable="true">name</th>
+          <th data-field="wechats" data-editable="true">wechats</th>
+        </tr>
+      </thead>
+    </table>
+    
+    <p>
+    <h4>User List</h4>
+    </p>
+    <table id="user-table" data-row-style="rowStyle">
+      <thead>
+        <tr>
+          <th data-field="name">name</th>
+          <th data-field="group" data-editable="true">group</th>
+          <th data-field="wechat" data-editable="true">wechat</th>
+        </tr>
+      </thead>
+    </table>
+    <p>
+    <h4>Wechat User List</h4>
+    </p>
+    <table id="wechat-table" data-row-style="rowStyle">
+      <thead>
+        <tr>
+          <th data-field="nickname">nickname</th>
+          <th data-field="group">group</th>
+          <th data-field="headimgurl">head</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  
+  <div class="modal fade" id="infodialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+              &times;
+            </button>-->
+            <h4 class="modal-title" id="infodialog_title">
+               ???
+            </h4>
           </div>
-
-          <h2 class="sub-header">Section title</h2>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                  <th>Header</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>1,001</td>
-                  <td>Lorem</td>
-                  <td>ipsum</td>
-                  <td>dolor</td>
-                  <td>sit</td>
-                </tr>
-                <tr>
-                  <td>1,002</td>
-                  <td>amet</td>
-                  <td>consectetur</td>
-                  <td>adipiscing</td>
-                  <td>elit</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>Integer</td>
-                  <td>nec</td>
-                  <td>odio</td>
-                  <td>Praesent</td>
-                </tr>
-                <tr>
-                  <td>1,003</td>
-                  <td>libero</td>
-                  <td>Sed</td>
-                  <td>cursus</td>
-                  <td>ante</td>
-                </tr>
-                <tr>
-                  <td>1,004</td>
-                  <td>dapibus</td>
-                  <td>diam</td>
-                  <td>Sed</td>
-                  <td>nisi</td>
-                </tr>
-                <tr>
-                  <td>1,005</td>
-                  <td>Nulla</td>
-                  <td>quis</td>
-                  <td>sem</td>
-                  <td>at</td>
-                </tr>
-                <tr>
-                  <td>1,006</td>
-                  <td>nibh</td>
-                  <td>elementum</td>
-                  <td>imperdiet</td>
-                  <td>Duis</td>
-                </tr>
-                <tr>
-                  <td>1,007</td>
-                  <td>sagittis</td>
-                  <td>ipsum</td>
-                  <td>Praesent</td>
-                  <td>mauris</td>
-                </tr>
-                <tr>
-                  <td>1,008</td>
-                  <td>Fusce</td>
-                  <td>nec</td>
-                  <td>tellus</td>
-                  <td>sed</td>
-                </tr>
-                <tr>
-                  <td>1,009</td>
-                  <td>augue</td>
-                  <td>semper</td>
-                  <td>porta</td>
-                  <td>Mauris</td>
-                </tr>
-                <tr>
-                  <td>1,010</td>
-                  <td>massa</td>
-                  <td>Vestibulum</td>
-                  <td>lacinia</td>
-                  <td>arcu</td>
-                </tr>
-                <tr>
-                  <td>1,011</td>
-                  <td>eget</td>
-                  <td>nulla</td>
-                  <td>Class</td>
-                  <td>aptent</td>
-                </tr>
-                <tr>
-                  <td>1,012</td>
-                  <td>taciti</td>
-                  <td>sociosqu</td>
-                  <td>ad</td>
-                  <td>litora</td>
-                </tr>
-                <tr>
-                  <td>1,013</td>
-                  <td>torquent</td>
-                  <td>per</td>
-                  <td>conubia</td>
-                  <td>nostra</td>
-                </tr>
-                <tr>
-                  <td>1,014</td>
-                  <td>per</td>
-                  <td>inceptos</td>
-                  <td>himenaeos</td>
-                  <td>Curabitur</td>
-                </tr>
-                <tr>
-                  <td>1,015</td>
-                  <td>sodales</td>
-                  <td>ligula</td>
-                  <td>in</td>
-                  <td>libero</td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="modal-body" id="infodialog_info">
+            ???
           </div>
         </div>
+        <!-- /.modal-content -->
       </div>
     </div>
 
-  <!-- jQuery (necessary for Flat UI's JavaScript plugins) -->
-  <script src="/flatui/js/vendor/jquery.min.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <!-- <script src="/flatui/js/vendor/video.js"></script> -->
-  <script src="/flatui/js/flat-ui.min.js"></script>
-  <!-- <script src="/javascripts/tooltip.js"></script> -->
-
-
   <script>
+    var stations;
+    var current_station_id = "overview";
+
     $(document).ready(function() {
 
       $("#username").empty().html("<%= user %>");
+      //var html = "<li class=\"active\"><a href=\"#\">Overview <span class=\"sr-only\">(current)</span></a></li>";
+      var html = "<li class=\"active\"><a href=\"#\">Overview</a></li>";
+      html += "<li><a href=\"#\">Reports</a></li>";
+      $("#station-sidebar").html(html);
+
+      $.ajax({
+        url: '/users/?action=getStationList',
+        type: 'post',
+        timeout: 5000,
+        data: {},
+        beforeSend: function(xhr) {},
+        success: function(data) {
+          var context = "<li id=overview class=active onclick=changeStation(\"overview\")><a href=#>Overview</a></li>";
+          // stations = JSON.parse(data);
+          // for (id in stations) {
+          //   context += "<li id=\"" + id + "\"class=? onclick=changeStation(\"" + id + "\")><a href=#>" + stations[id] + "</a></li>";
+          //   $("#station-sidebar").html(context);
+          // }
+          for (var i = 0; i < data.length; i++) {
+            context += "<li id=\"" + data[i].id + "\"class=? onclick=changeStation(\"" + data[i].id + "\")><a href=#>" + data[i].name + "</a></li>";
+          }
+          $("#station-sidebar").html(context);
+
+          context = "<li id=overview onclick=changeStationItem('overview')><a href='javascript:void(0)'>Overview</a></li>";
+          for (var i = 0; i < data.length; i++) {
+            //<li><a href="javascript:void(0)">Action</a></li>
+            context += "<li id=\"" + data[i].id + "\"class=? onclick=changeStationItem('" + data[i].id + "')><a href='javascript:void(0)'>" + data[i].name + "</a></li>";
+          }
+          $("#stationlist").html(context);
+        },
+        error: function(xhr, status) {
+          if (status == 'timeout') {}
+          else {}
+        },
+        complete: function(xhr) {}
+      });
+
+      getOverviewData();
+
+      // var data = [
+      //       {
+      //           "id": 0,
+      //           "name": "Item 0",
+      //           "price": "$0"
+      //       },
+      //       {
+      //           "id": 1,
+      //           "name": "Item 1",
+      //           "price": "$1"
+      //       },
+      //       {
+      //           "id": 2,
+      //           "name": "Item 2",
+      //           "price": "$2"
+      //       },
+      //       {
+      //           "id": 3,
+      //           "name": "Item 3",
+      //           "price": "$3"
+      //       },
+      //       {
+      //           "id": 4,
+      //           "name": "Item 4",
+      //           "price": "$4"
+      //       },
+      //       {
+      //           "id": 5,
+      //           "name": "Item 5",
+      //           "price": "$5"
+      //       }
+      //   ];
+      //   $('#overview-table').bootstrapTable({data: data});
+
     });
-    
-    function logout(){
-      alert("logout");
+
+    function getOverviewData() {
+      current_station_id = "overview";
+      $.ajax({
+        url: '/users/?action=getOverviewData',
+        type: 'post',
+        timeout: 5000,
+        data: {},
+        beforeSend: function(xhr) {},
+        success: function(data) {
+          $('#overview-table').bootstrapTable({
+            data: data
+          });
+          $('#overview-table').bootstrapTable('load', data);
+        },
+        error: function(xhr, status) {
+          if (status == 'timeout') {}
+          else {}
+        },
+        complete: function(xhr) {}
+      });
     }
+    
+    function getStationData(id) {
+      $.ajax({
+          url: '/users/?action=getStationData',
+          type: 'post',
+          timeout: 5000,
+          data: {
+            id: id
+          },
+          beforeSend: function(xhr) {},
+          success: function(data) {
+            $('#overview-table').bootstrapTable('load', data);
+          },
+          error: function(xhr, status) {
+            var data = [];
+            $('#overview-table').bootstrapTable('load', data);
+            if (status == 'timeout') {}
+            else {}
+          },
+          complete: function(xhr) {}
+        });
+    }
+
+    function rowStyle(row, index) {
+      return {
+        classes: row.status
+      };
+    }
+
+    function changeStation(id) {
+      $("#station-sidebar").children().attr("class", "???");
+      $("#" + id).attr("class", "active");
+      current_station_id = id;
+
+      if (id == "overview") {
+        getOverviewData();
+      }
+      else {
+        $.ajax({
+          url: '/users/?action=getStationData',
+          type: 'post',
+          timeout: 5000,
+          data: {
+            id: id
+          },
+          beforeSend: function(xhr) {},
+          success: function(data) {
+            $('#overview-table').bootstrapTable('load', data);
+          },
+          error: function(xhr, status) {
+            var data = [];
+            $('#overview-table').bootstrapTable('load', data);
+            if (status == 'timeout') {}
+            else {}
+          },
+          complete: function(xhr) {}
+        });
+      }
+    }
+
+    function changeStationItem(id) {
+      current_station_id = id;
+
+      if (id == "overview") {
+        $("#stationlisttitle").html("Overview<b class='caret'></b>");
+        getOverviewData();
+      }
+      else {
+        $("#stationlisttitle").html($("#" + id).children().html() + "<b class='caret'></b>");
+        $.ajax({
+          url: '/users/?action=getStationData',
+          type: 'post',
+          timeout: 5000,
+          data: {
+            id: id
+          },
+          beforeSend: function(xhr) {},
+          success: function(data) {
+            $('#overview-table').bootstrapTable('load', data);
+          },
+          error: function(xhr, status) {
+            var data = [];
+            $('#overview-table').bootstrapTable('load', data);
+            if (status == 'timeout') {}
+            else {}
+          },
+          complete: function(xhr) {}
+        });
+      }
+    }
+
+    function logout() {
+      $.ajax({
+        url: '/login/?action=logout',
+        type: 'post',
+        timeout: 3000, // 3000 ms
+        data: {},
+        beforeSend: function(xhr) {},
+        success: function(data) {
+          if (data == "success") {
+            location.reload();
+          }
+          else {
+            // what happen ???
+          }
+        },
+        error: function(xhr, status) {
+          if (status == 'timeout') {}
+          else {}
+        },
+        complete: function(xhr) {}
+      });
+    }
+
+    function settings() {
+      current_station_id = undefined;
+      // hide(document.querySelectorAll('.target'));
+      // hide(document.querySelector('.target'));
+      // hide(document.getElementById('target'));
+      //hide(document.getElementById('#main-frame'));
+      hide(document.querySelector('#stationlisttitle'));
+      hide(document.querySelector('#message'));
+      hide(document.querySelector('#main-frame'));
+      hide(document.querySelector('#sendmsg'));
+      show(document.querySelector('#setting-frame'));
+
+      $.ajax({
+        url: '/users/?action=getStationList',
+        type: 'post',
+        timeout: 5000,
+        data: {},
+        beforeSend: function(xhr) {
+          hide(document.querySelector('#stations-table'));
+        },
+        success: function(data) {
+          $('#stations-table').bootstrapTable({
+            data: data
+          });
+          $('#stations-table').bootstrapTable('load', data);
+          show(document.querySelector('#stations-table'));
+        },
+        error: function(xhr, status) {
+          var data = [];
+          $('#stations-table').bootstrapTable('load', data);
+          if (status == 'timeout') {}
+          else {}
+        },
+        complete: function(xhr) {}
+      });
+
+      $.ajax({
+        url: '/users/?action=getUserList',
+        type: 'post',
+        timeout: 5000,
+        data: {},
+        beforeSend: function(xhr) {
+          hide(document.querySelector('#user-table'));
+        },
+        success: function(data) {
+          $('#user-table').bootstrapTable({
+            data: data
+          });
+          $('#user-table').bootstrapTable('load', data);
+          show(document.querySelector('#user-table'));
+        },
+        error: function(xhr, status) {
+          var data = [];
+          $('#user-table').bootstrapTable('load', data);
+          if (status == 'timeout') {}
+          else {}
+        },
+        complete: function(xhr) {}
+      });
+
+      $.ajax({
+        url: '/users/?action=getWechatUserList',
+        type: 'post',
+        timeout: 5000,
+        data: {},
+        beforeSend: function(xhr) {
+          hide(document.querySelector('#wechat-table'));
+        },
+        success: function(data) {
+          $('#wechat-table').bootstrapTable({
+            data: data
+          });
+          $('#wechat-table').bootstrapTable('load', data);
+          show(document.querySelector('#wechat-table'));
+        },
+        error: function(xhr, status) {
+          var data = [];
+          $('#wechat-table').bootstrapTable('load', data);
+          if (status == 'timeout') {}
+          else {}
+        },
+        complete: function(xhr) {}
+      });
+    }
+
+    function hide(elements) {
+      elements = elements.length ? elements : [elements];
+      for (var index = 0; index < elements.length; index++) {
+        elements[index].style.display = 'none';
+      }
+    }
+
+    function show(elements, specifiedDisplay) {
+      var computedDisplay, element, index;
+
+      elements = elements.length ? elements : [elements];
+      for (index = 0; index < elements.length; index++) {
+        element = elements[index];
+
+        // Remove the element's inline display styling
+        element.style.display = '';
+        computedDisplay = window.getComputedStyle(element, null).getPropertyValue('display');
+
+        if (computedDisplay === 'none') {
+          element.style.display = specifiedDisplay || 'block';
+        }
+      }
+    }
+
+    function sendmsg() {
+      if ($("#message").val() == "") {
+        alert("no message");
+        return;
+      }
+      if (current_station_id == undefined) {
+        alert("undefined");
+        return;
+      }
+      if (current_station_id == "overview") {
+        alert("send message to all station error");
+        return;
+      }
+      $.ajax({
+        url: '/users/?action=sendmsg',
+        type: 'post',
+        timeout: 5000,
+        data: {
+          stationid: current_station_id,
+          msg: $("#message").val()
+        },
+        beforeSend: function(xhr) {},
+        success: function(data) {
+          if (data == "ok") {
+            alert("send ok");
+          }
+          else {
+            alert(data);
+          }
+        },
+        error: function(xhr, status) {
+          alert("send fail");
+        },
+        complete: function(xhr) {}
+      });
+    }
+
+    function saveStationList() {
+      $.ajax({
+        url: '/users/?action=saveStationList',
+        type: 'post',
+        timeout: 5000,
+        data: {
+          data: JSON.stringify($('#stations-table').bootstrapTable('getData'))
+        },
+        beforeSend: function(xhr) {},
+        success: function(data) {
+          $('#stations-table').bootstrapTable({
+            data: data
+          });
+          $('#stations-table').bootstrapTable('load', data);
+
+          $("#infodialog_title").html("Success");
+            $("#infodialog_info").html("Save Data OK");
+            $("#infodialog").modal('show');
+            setTimeout(
+              function() {
+                $("#infodialog").modal('hide');
+              },
+              3000);
+        },
+        error: function(xhr, status) {},
+        complete: function(xhr) {}
+      });
+    }
+
+    // $(function(){
+    // $('#options').editable({
+    //     value: [2, 3],    
+    //     source: [
+    //           {value: 1, text: 'option1'},
+    //           {value: 2, text: 'option2'},
+    //           {value: 3, text: 'option3'}
+    //       ]
+    // });
+    // });
+
+    //   $('#saveStationListButton').avgrund({
+    // 	height: 200,
+    // 	holderClass: 'custom',
+    // 	showClose: true,
+    // 	showCloseText: 'close',
+    // 	onBlurContainer: '.container',
+    // 	template: '<p>So implement your design and place content here! If you want to close modal, please hit "Esc", click somewhere on the screen or use special button.</p>' +
+    // 	'<div>' +
+    // 	'<a href="http://github.com/voronianski/jquery.avgrund.js" target="_blank" class="github">Avgrund on Github</a>' +
+    // 	'<a href="http://twitter.com/voronianski" target="_blank" class="twitter">Twitter</a>' +
+    // 	'<a href="http://dribbble.com/voronianski" target="_blank" class="dribble">Dribbble</a>' +
+    // 	'</div>'
+    // });
+
+    //$('#saveStationListButton').leanModal();
+    
+    setInterval(function(){
+      if(current_station_id == undefined) return;
+      
+      if(current_station_id == "overview"){
+        getOverviewData();
+      }else{
+        getStationData(current_station_id);
+      }
+      
+    }, 10000);
   </script>
 
 </body>
